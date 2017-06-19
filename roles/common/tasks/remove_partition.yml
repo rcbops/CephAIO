@@ -1,0 +1,7 @@
+---
+
+# Remove partition number 1
+- parted:
+    device: /dev/xvdb
+    number: 1
+    state: absent

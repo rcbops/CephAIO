@@ -1,0 +1,8 @@
+---
+
+# Create disk partition
+- include: install_packages.yml
+- include: update_hostfile.yml 
+- include: create_partition.yml
+- include: create_containers.yml
+- include: configure_disks.yml

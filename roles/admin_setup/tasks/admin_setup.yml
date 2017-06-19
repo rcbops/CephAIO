@@ -1,0 +1,29 @@
+---
+
+- name: Get the ceph installation files
+  shell: wget -q -O- 'https://download.ceph.com/keys/release.asc' | apt-key add -
+    
+- name: add ceph repos to /etc/apt/sources.list.d/ceph.list
+  shell: echo deb https://download.ceph.com/debian-jewel/ $(lsb_release -sc) main | tee /etc/apt/sources.list.d/ceph.list
+
+- name: update apt cache
+  apt:
+    update_cache: yes
+
+- name: install ceph-deploy
+  apt:
+    name: ceph-deploy
+    state: present
+
+- name: add other containers to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: '{{ item.ip }} {{ item.container }}'
+    state: present
+  with_items:
+    - { container: "cephadmin" , ip: "10.0.3.51" }
+    - { container: "cephmon" , ip: "10.0.3.52" }
+    - { container: "cephosd1" , ip: "10.0.3.53" }
+    - { container: "cephosd2" , ip: "10.0.3.54" }
+    - { container: "cephosd3" , ip: "10.0.3.55" }
+

@@ -1,0 +1,7 @@
+---
+
+# Destroy Containers
+- include: destroy_containers.yml
+
+# Remove disk partitions
+- include: remove_partition.yml

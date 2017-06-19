@@ -1,0 +1,156 @@
+---
+- name: Create containers
+  lxc_container:
+    name: '{{ item }}'
+    container_log: true
+    template: download
+    state: stopped
+    template_options: -d ubuntu -r xenial -a amd64
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: Assign IPs to containers
+  lineinfile:
+    path: "{{ item.container }}" 
+    state: present
+    line: 'lxc.network.ipv4 = {{ item.IP }}/24'
+  with_items:
+    - { container: '/var/lib/lxc/cephadmin/config', IP: '10.0.3.51' }
+    - { container: '/var/lib/lxc/cephmon/config', IP: '10.0.3.52' }
+    - { container: '/var/lib/lxc/cephosd1/config', IP: '10.0.3.53' }
+    - { container: '/var/lib/lxc/cephosd2/config', IP: '10.0.3.54' }
+    - { container: '/var/lib/lxc/cephosd3/config', IP: '10.0.3.55' } 
+
+- name: Start conainters
+  lxc_container:
+    name: '{{ item }}'
+    state: started
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: Create mountpoint for osd disk
+  lxc_container:
+    name: '{{ item }}'
+    container_command: |
+      mkdir -p /mnt/xfsdisk
+  with_items:
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: Change permissions for osd disk
+  lxc_container:
+    name: '{{ item }}'
+    container_command: |
+      chmod 777 /mnt/xfsdisk
+  with_items:
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: Install openssh-server in containers
+  lxc_container:
+    name: '{{ item }}'
+    container_command: |
+      apt-get install -y openssh-server && echo 'installed' > /dev/null
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: Install python in containers
+  lxc_container:
+    name: '{{ item }}'
+    container_command: |
+      apt-get install -y python
+      echo 'installed' > /dev/null
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: Create .ssh directory
+  file:
+    path: "{{ item }}"
+    owner: root
+    state: directory
+    mode: 700 
+  with_items:
+    - /var/lib/lxc/cephadmin/rootfs/root/.ssh
+    - /var/lib/lxc/cephmon/rootfs/root/.ssh
+    - /var/lib/lxc/cephosd1/rootfs/root/.ssh
+    - /var/lib/lxc/cephosd2/rootfs/root/.ssh
+    - /var/lib/lxc/cephosd3/rootfs/root/.ssh
+
+- name: Modify permissions of .ssh in container
+  lxc_container:
+    name: '{{ item }}'
+    container_command: |
+      chmod 700 /root/.ssh
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: Add authorized_keys file to containers
+  copy:
+    content: ""
+    dest: "{{ item }}"
+    force: no
+    owner: root
+    mode: 644
+  with_items:
+    - /var/lib/lxc/cephadmin/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephmon/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephosd1/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephosd2/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephosd3/rootfs/root/.ssh/authorized_keys
+
+- name: Add physical host key to container authorized_keys file
+  shell: cat ~/.ssh/id_rsa.pub >> "{{ item }}"
+  with_items:
+    - /var/lib/lxc/cephadmin/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephmon/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephosd1/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephosd2/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephosd3/rootfs/root/.ssh/authorized_keys
+
+- name: add ssh key to cephadmin container
+  shell: cat ~/.ssh/id_rsa >> "{{ item }}"
+  with_items:
+    - /var/lib/lxc/cephadmin/rootfs/root/.ssh/id_rsa
+
+- name: Modify key permissions
+  lxc_container:
+    name: '{{ item }}'
+    container_command: |
+      chmod 600 /root/.ssh/id_rsa
+  with_items:
+    - cephadmin
+
+- name: Modify permissions of authorized_keys in container
+  lxc_container:
+    name: '{{ item }}'
+    container_command: |
+      chmod 644 /root/.ssh/authorized_keys
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3
+

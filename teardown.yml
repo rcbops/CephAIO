@@ -1,0 +1,23 @@
+---
+
+- hosts: cephosd1,cephosd2,cephosd3
+  tasks:
+    - name: remove ceph_fsid
+      file:
+        path: /mnt/xfsdisk/ceph_fsid
+        state: absent
+
+- hosts: cephadmin
+  tasks:
+    - name: purge ceph
+      shell: ceph-deploy purge cephadmin cephmon cephosd1 cephosd2 cephosd3
+    - name: purge ceph data
+      shell: ceph-deploy purgedata cephadmin cephmon cephosd1 cephosd2 cephosd3
+    - name: remove ceph keys
+      shell: ceph-deploy forgetkeys
+
+- hosts: physical_host
+  roles:
+    - teardown
+
+

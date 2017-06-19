@@ -1,0 +1,10 @@
+---
+
+- name: prepare osds for use
+  shell: /usr/bin/ceph-deploy osd prepare cephosd1:/mnt/xfsdisk cephosd2:/mnt/xfsdisk cephosd3:/mnt/xfsdisk && echo "done"
+
+- name: activate osds
+  shell: /usr/bin/ceph-deploy osd activate cephosd1:/mnt/xfsdisk cephosd2:/mnt/xfsdisk cephosd3:/mnt/xfsdisk && echo "done"
+
+- name: deploy admin keys
+  shell: /usr/bin/ceph-deploy admin cephadmin cephmon cephosd3 cephosd1 cephosd2 && echo "done" 

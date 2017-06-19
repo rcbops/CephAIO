@@ -1,0 +1,17 @@
+---
+
+- hosts: physical_host
+  roles:
+    - build
+
+- hosts: cephadmin
+  roles:
+    - admin_setup
+
+- hosts: containers
+  roles:
+    - container_setup
+
+- hosts: cephadmin
+  roles: 
+    - install

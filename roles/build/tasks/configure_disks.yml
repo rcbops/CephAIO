@@ -1,0 +1,48 @@
+---
+
+- include_vars: "/root/cephAIO/AIO_user_config.yml"
+
+- name: stop osd containers
+  lxc_container:
+    name: "{{ item }}"
+    state: stopped
+  with_items:
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: put xfs filesystem on partitions
+  filesystem:
+    fstype: xfs
+    dev: /dev/{{ item.drive }}
+  with_items:
+    - "{{ drives }}"
+
+- name: attach partition to container
+  shell: echo "lxc.cgroup.devices.allow = b $(lsblk | grep {{ item.drive }} | awk '{print $2}') rwm" >> /var/lib/lxc/{{ item.container }}/config
+  with_items:
+    - "{{ drives }}"
+
+- name: add profile for partition
+  shell: echo "lxc.aa_profile = unconfined" >> /var/lib/lxc/{{ item.container }}/config
+  with_items:
+    - "{{ drives }}"
+
+- name: add mountpoint for partition in container
+  shell: echo "lxc.mount = /var/lib/lxc/{{ item.container }}/fstab" >> /var/lib/lxc/{{ item.container }}/config
+  with_items:
+    - "{{ drives }}"
+
+- name: add fstab file for container
+  shell: echo "/dev/{{ item.drive }} mnt/xfsdisk xfs noatime 0 0" > /var/lib/lxc/{{ item.container }}/fstab
+  with_items:
+    - "{{ drives }}"
+
+- name: start osd containers
+  lxc_container:
+    name: "{{ item }}"
+    state: started
+  with_items:
+    - cephosd1
+    - cephosd2
+    - cephosd3 

@@ -1,0 +1,30 @@
+---
+
+- name: Run the equivalent of "apt-get update"
+  apt:
+    update_cache: yes
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+
+- name: install lxc
+  apt:
+    name: lxc
+    state: present
+
+- name: install lxc-python2 with pip
+  pip:
+    name: lxc-python2
+    state: present
+
+- name: configure ssh to disable host key checking
+  lineinfile:
+    path: /etc/ssh/ssh_config
+    line: 'StrictHostKeyChecking no'
+
+- name: update iptables
+  shell: iptables -A INPUT -i lxcbr0 -p tcp -s 10.0.3.51/24 --dport 6789 -j ACCEPT
+
+- name: update iptables
+  shell: iptables -A INPUT -p tcp --match multiport --dports 6800:7300 -j ACCEPT

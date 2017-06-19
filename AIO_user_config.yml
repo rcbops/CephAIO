@@ -1,0 +1,4 @@
+drives:
+  - {container: cephosd1, drive: xvdb1}
+  - {container: cephosd2, drive: xvdb2}
+  - {container: cephosd3, drive: xvdb3}

@@ -1,0 +1,23 @@
+---
+
+# Create 3 disk partitions to act as osds
+
+- parted:
+    device: /dev/xvdb
+    number: 1
+    state: present
+    part_end: 10GiB
+
+- parted:
+    device: /dev/xvdb
+    number: 2
+    state: present
+    part_start: 10GiB
+    part_end: 20GiB
+
+- parted:
+    device: /dev/xvdb
+    number: 3
+    state: present
+    part_start: 20GiB
+    part_end: 30GiB

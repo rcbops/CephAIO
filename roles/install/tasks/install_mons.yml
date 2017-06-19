@@ -1,0 +1,39 @@
+---
+
+- name: check conectivity
+  ping:
+  delegate_to: cephadmin
+
+- name: create .ssh for ceph user
+  file: 
+    path: ~ceph/.ssh
+    state: directory
+    force: no
+    mode: 700
+
+- name: create .ssh for ceph user
+  copy: 
+    content: ""
+    dest: ~ceph/.ssh/authorized_keys
+    force: no
+
+- name: turn off strict host key checking
+  lineinfile:
+    path: /etc/ssh/ssh_config
+    state: present
+    line: "StrictHostKeyChecking no"
+
+- name: install ceph mons
+  shell: /usr/bin/ceph-deploy new cephadmin cephmon cephosd1 && echo "done"
+
+- name: set cluster config
+  lineinfile: 
+    path: ~/ceph.conf
+    line: "osd_pool_default_size = 2"
+    state: present
+
+- name: install ceph cluster
+  shell: /usr/bin/ceph-deploy install cephadmin cephmon cephosd1 cephosd2 cephosd3 && echo "done" 
+
+- name: create ceph mons
+  shell: /usr/bin/ceph-deploy mon create-initial && echo "done"

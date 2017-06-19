@@ -1,0 +1,11 @@
+ansible_ssh_common_args='-o StricthostKeyChecking=no'
+
+[physical_host]
+localhost
+
+[containers]
+cephadmin
+cephmon
+cephosd1
+cephosd2
+cephosd3

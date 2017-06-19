@@ -1,0 +1,23 @@
+---
+
+- name: Stop running containers
+  lxc_container:
+    name: '{{ item }}'
+    state: stopped
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+- name: Destroy containers
+  lxc_container:
+    name: '{{ item }}'
+    state: absent
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3 

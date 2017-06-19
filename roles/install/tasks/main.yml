@@ -1,0 +1,4 @@
+---
+
+- include: install_mons.yml
+- include: install_osds.yml

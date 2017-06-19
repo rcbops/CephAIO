@@ -1,0 +1,7 @@
+---
+
+# Create new primary partition
+- parted:
+    device: /dev/xvdb
+    number: 1
+    state: present
