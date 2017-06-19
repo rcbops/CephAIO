@@ -18,10 +18,12 @@ The goal of this project was to create an all in one enviroment of ceph that res
 
 
 Known to Work on:
+```
   Rackspace Public Cloud
-    - 15 GB Compute v1
-    - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+    - 15 GB Compute v1   
+    - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)  
     - 75 GB Standard SATA block device attached as /dev/xvdb
+```    
 
 ### To build
 
