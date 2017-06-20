@@ -1,6 +1,6 @@
 ---
 
-- include_vars: "/root/cephAIO/AIO_user_config.yml"
+- include_vars: "/root/CephAIO/AIO_user_config.yml"
 
 - name: stop osd containers
   lxc_container:

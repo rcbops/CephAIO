@@ -13,6 +13,21 @@
     name: lxc
     state: present
 
+- name: install pip
+  apt:
+    name: python-pip
+    state: present
+
+- name: install python-dev
+  apt:
+    name: python-dev
+    state: present
+
+- name: install lxc-dev
+  apt:
+    name: lxc-dev
+    state: present
+
 - name: install lxc-python2 with pip
   pip:
     name: lxc-python2
@@ -20,8 +35,9 @@
 
 - name: configure ssh to disable host key checking
   lineinfile:
-    path: /etc/ssh/ssh_config
+    dest: /etc/ssh/ssh_config
     line: 'StrictHostKeyChecking no'
+    state: present
 
 - name: update iptables
   shell: iptables -A INPUT -i lxcbr0 -p tcp -s 10.0.3.51/24 --dport 6789 -j ACCEPT

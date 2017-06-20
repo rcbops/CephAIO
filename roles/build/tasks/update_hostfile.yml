@@ -1,6 +1,6 @@
 - name: add containers to /etc/hosts
   lineinfile: 
-    path: /etc/hosts
+    dest: /etc/hosts
     state: present
     line: ' {{ item.IP }}  {{ item.container }} '
   with_items:

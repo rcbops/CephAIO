@@ -15,7 +15,7 @@
 
 - name: Assign IPs to containers
   lineinfile:
-    path: "{{ item.container }}" 
+    dest: "{{ item.container }}" 
     state: present
     line: 'lxc.network.ipv4 = {{ item.IP }}/24'
   with_items:
@@ -154,3 +154,23 @@
     - cephosd2
     - cephosd3
 
+- name: Restart containers
+  lxc_container:
+    name: '{{ item }}'
+    state: restarted
+  with_items:
+    - cephadmin
+    - cephmon
+    - cephosd1
+    - cephosd2
+    - cephosd3
+
+#- name: wait for container ssh
+# wait_for: port=22 host= "{{ item }}" search_regex=OpenSSH delay=10
+#  connection: local
+#  with_items:
+#    - cephadmin
+#    - cephmon
+#    - cephosd1
+#    - cephosd2
+#    - cephosd3

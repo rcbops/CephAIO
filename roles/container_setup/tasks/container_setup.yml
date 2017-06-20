@@ -23,8 +23,11 @@
     
 - name: add ceph user to sudoers
   lineinfile:
-    path: /etc/sudoers.d/ceph
+    dest: /etc/sudoers.d/ceph
     line: "ceph ALL = (root) NOPASSWD:ALL"
+
+- name: change permissions on ceph disk
+  shell: chmod 777 /mnt/xfsdisk
 
 - name: change permissions of sudoers ceph file
   shell: chmod 0440 /etc/sudoers.d/ceph

@@ -19,7 +19,7 @@
 
 - name: turn off strict host key checking
   lineinfile:
-    path: /etc/ssh/ssh_config
+    dest: /etc/ssh/ssh_config
     state: present
     line: "StrictHostKeyChecking no"
 
