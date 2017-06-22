@@ -1,5 +1,7 @@
 # CephAIO
 
+Requires: Ansible 2.3.0 or higher
+
 Creates an AIO for ceph using LXC containers
 
 The goal of this project was to create an all in one enviroment of ceph that resembled what a production ceph cluster may look like. Each container is treated as a "server". 
