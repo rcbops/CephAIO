@@ -12,7 +12,7 @@ The goal of this project was to create an all in one enviroment of ceph that res
 -------------------------------------------------------------------
 | cephadmin | 10.0.3.51 | Deployment Host, ceph monitoring host   |
 | cephmon   | 10.0.3.52 | ceph monitoring host                    |
-| cephosd1  | 10.0.3.53 | ceph monitoring host, ceph osd host     |
+| cephosd1  | 10.0.3.53 | ceph osd host                           |
 | cephosd2  | 10.0.3.54 | ceph osd host                           |
 | cephosd3  | 10.0.3.55 | ceph osd host                           |
 -------------------------------------------------------------------
@@ -20,6 +20,7 @@ The goal of this project was to create an all in one enviroment of ceph that res
 
 
 Known to Work on:
+
 ```
   Rackspace Public Cloud
     - 15 GB Compute v1   
@@ -29,7 +30,11 @@ Known to Work on:
 
 ### To build
 
-` ansible-playbook -i inventory build.yml `
+```
+cd CephAIO
+bash bootstrap.sh
+ansible-playbook -i inventory build.yml
+```
 
 ### To Teardown
 
