@@ -24,7 +24,7 @@
     line: "StrictHostKeyChecking no"
 
 - name: install ceph mons
-  shell: /usr/bin/ceph-deploy new cephadmin cephmon cephosd1 && echo "done"
+  shell: /usr/bin/ceph-deploy new cephadmin cephmon && echo "done"
 
 - name: set cluster config
   lineinfile: 

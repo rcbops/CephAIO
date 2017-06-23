@@ -8,6 +8,10 @@
   roles:
     - admin_setup
 
+- hosts: osds
+  roles:
+    - osd_setup
+
 - hosts: containers
   roles:
     - container_setup

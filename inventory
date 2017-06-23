@@ -9,3 +9,13 @@ cephmon
 cephosd1
 cephosd2
 cephosd3
+
+[mons]
+cephadmin
+cephmon
+cephosd1
+
+[osds]
+cephosd1
+cephosd2
+cephosd3
