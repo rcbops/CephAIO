@@ -1,0 +1,4 @@
+---
+
+- name: change permissions on ceph disk
+  shell: chmod 777 /mnt/xfsdisk
