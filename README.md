@@ -1,6 +1,6 @@
 # CephAIO
 
-Requires: Ansible 2.3.0 or higher
+Requires: Ubuntu 16.04 and Ansible 2.3.0 or higher
 
 Creates an AIO for ceph using LXC containers
 
