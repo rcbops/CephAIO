@@ -1,0 +1,7 @@
+---
+
+- hosts: physical_host
+  roles:
+    - teardown
+
+

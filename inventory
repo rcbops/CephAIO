@@ -19,3 +19,6 @@ cephosd1
 cephosd1
 cephosd2
 cephosd3
+
+[rgws]
+cephmon
