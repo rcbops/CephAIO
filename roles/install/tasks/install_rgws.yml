@@ -7,4 +7,4 @@
   shell: /usr/bin/ceph-deploy ceph-deploy admin cephrgw && echo "done"
 
 - name: create the gateway instance
-  shell: /usr/bin/ceph-deploy rgw create cephrgw 
+  shell: /usr/bin/ceph-deploy rgw create cephrgw && echo "done"

@@ -36,4 +36,4 @@
   shell: /usr/bin/ceph-deploy install cephadmin cephmon cephosd1 cephosd2 cephosd3 cephrgw && echo "done" 
 
 - name: create ceph mons
-  shell: /usr/bin/ceph-deploy mon create-initial --overwrite-conf && echo "done"
+  shell: /usr/bin/ceph-deploy mon create-initial && echo "done"

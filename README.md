@@ -29,24 +29,29 @@ Known to Work on:
     - 75 GB Standard SATA block device attached as /dev/xvdb
 ```    
 
-### Install ansible
+### Boot Strap the Host
+Use **bootstrap.sh** to stage the host:
+
 Add ansible repo and run update package lists
 ```
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 ```
-
-Install ansible
+Install ansible 
 ```
 sudo apt-get install -y ansible
 ```
-
-### To build
-
 Create a passwordless ssh-key
 ```
 su - $USER -c "echo |ssh-keygen -t rsa"
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 ```
+Disable password entry
+```
+sed -i '/PasswordAuthentication yes/c\PasswordAuthentication no' /etc/ssh/sshd_config##
+```
+
+### To Create the CephAIO
 
 ```
 cd CephAIO
