@@ -41,7 +41,7 @@ Install ansible
 ```
 sudo apt-get install -y ansible
 ```
-Create a passwordless ssh-key
+Create a passwordless ssh-key and copy the key to itself
 ```
 su - $USER -c "echo |ssh-keygen -t rsa"
 cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
@@ -69,10 +69,15 @@ After using the teardown playbook, ensure that the ceph disk has been completely
 
 ` ansible-playbook -i inventory cleanup.yml `
 
-If the containers and drives are created but the installation of ceph fails then ` cleanup.yml ` will stop and destory the containers then remove the 3 partitions from the external drive and then run the ' shred ` command.  This ability to basically reset the host back to clean state with minimum effort if an error installing ceph happens.
+If the containers and drives are created but the installation of ceph fails then ` cleanup.yml ` will stop and destory the containers then remove the 3 partitions from the external drive and then run the ' shred ` command.  This provides the ability to reset the host back to a clean state if an error installing ceph happens.
+
+### Tests
+
+The directory  **tests** contains information on how to test the success of some installed components.  
 
 TO DO: 
 
 - Add variable to control the number of osds deployed
 - Add variable to remove the hardcoded /dev/xvdb
+
 
