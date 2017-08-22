@@ -1,0 +1,11 @@
+---
+
+- name: install ceph rgw
+  shell: /usr/bin/ceph-deploy install --rgw cephrgw && echo "done"
+
+#  Seems to cause an error when trying to install
+# - name: promote cephrgw to an admin node
+#   shell: /usr/bin/ceph-deploy ceph-deploy admin cephrgw && echo "done"
+
+- name: create the gateway instance
+  shell: /usr/bin/ceph-deploy rgw create cephrgw && echo "done"

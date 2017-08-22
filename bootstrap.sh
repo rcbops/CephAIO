@@ -7,7 +7,8 @@ apt-add-repository ppa:ansible/ansible
 apt-get update
 apt-get install ansible
 
-# Copy public key to self
+# Create a key-pair and copy public key to self
+su - $USER -c "echo |ssh-keygen -t rsa"
 cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
 # Disable password entry

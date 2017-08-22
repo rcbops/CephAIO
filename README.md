@@ -15,6 +15,7 @@ The goal of this project was to create an all in one enviroment of ceph that res
 | cephosd1  | 10.0.3.53 | ceph osd host                           |
 | cephosd2  | 10.0.3.54 | ceph osd host                           |
 | cephosd3  | 10.0.3.55 | ceph osd host                           |
+| cephrgw   | 10.0.3.56 | ceph rados gateway host                 |
 -------------------------------------------------------------------
 ```
 
@@ -28,7 +29,29 @@ Known to Work on:
     - 75 GB Standard SATA block device attached as /dev/xvdb
 ```    
 
-### To build
+### Boot Strap the Host
+Use **bootstrap.sh** to stage the host:
+
+Add ansible repo and run update package lists
+```
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+```
+Install ansible 
+```
+sudo apt-get install -y ansible
+```
+Create a passwordless ssh-key and copy the key to itself
+```
+su - $USER -c "echo |ssh-keygen -t rsa"
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+```
+Disable password entry
+```
+sed -i '/PasswordAuthentication yes/c\PasswordAuthentication no' /etc/ssh/sshd_config##
+```
+
+### To Create the CephAIO
 
 ```
 cd CephAIO
@@ -42,9 +65,19 @@ ansible-playbook -i inventory build.yml
 
 After using the teardown playbook, ensure that the ceph disk has been completely wiped. Ceph leaves some residual data that interferes with future deployments. The teardown playbook currently uses ` shred ` to perform the data wipe (this takes awhile), but I am pretty sure that removing the block device and adding a new one would accomplish the same end result.
 
+### Clean Up
+
+` ansible-playbook -i inventory cleanup.yml `
+
+If the containers and drives are created but the installation of ceph fails then ` cleanup.yml ` will stop and destory the containers then remove the 3 partitions from the external drive and then run the ' shred ` command.  This provides the ability to reset the host back to a clean state if an error installing ceph happens.
+
+### Tests
+
+The directory  **tests** contains information on how to test the success of some installed components.  
 
 TO DO: 
 
 - Add variable to control the number of osds deployed
 - Add variable to remove the hardcoded /dev/xvdb
+
 

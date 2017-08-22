@@ -12,6 +12,7 @@
     - cephosd1
     - cephosd2
     - cephosd3
+    - cephrgw
 
 - name: Assign IPs to containers
   lineinfile:
@@ -24,6 +25,7 @@
     - { container: '/var/lib/lxc/cephosd1/config', IP: '10.0.3.53' }
     - { container: '/var/lib/lxc/cephosd2/config', IP: '10.0.3.54' }
     - { container: '/var/lib/lxc/cephosd3/config', IP: '10.0.3.55' } 
+    - { container: '/var/lib/lxc/cephrgw/config', IP: '10.0.3.56' } 
 
 - name: Start conainters
   lxc_container:
@@ -35,6 +37,7 @@
     - cephosd1
     - cephosd2
     - cephosd3
+    - cephrgw
 
 - name: Create mountpoint for osd disk
   lxc_container:
@@ -67,6 +70,7 @@
     - cephosd1
     - cephosd2
     - cephosd3
+    - cephrgw
 
 - name: Install python in containers
   lxc_container:
@@ -80,6 +84,7 @@
     - cephosd1
     - cephosd2
     - cephosd3
+    - cephrgw
 
 - name: Create .ssh directory
   file:
@@ -93,6 +98,7 @@
     - /var/lib/lxc/cephosd1/rootfs/root/.ssh
     - /var/lib/lxc/cephosd2/rootfs/root/.ssh
     - /var/lib/lxc/cephosd3/rootfs/root/.ssh
+    - /var/lib/lxc/cephrgw/rootfs/root/.ssh
 
 - name: Modify permissions of .ssh in container
   lxc_container:
@@ -105,6 +111,7 @@
     - cephosd1
     - cephosd2
     - cephosd3
+    - cephrgw
 
 - name: Add authorized_keys file to containers
   copy:
@@ -119,6 +126,7 @@
     - /var/lib/lxc/cephosd1/rootfs/root/.ssh/authorized_keys
     - /var/lib/lxc/cephosd2/rootfs/root/.ssh/authorized_keys
     - /var/lib/lxc/cephosd3/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephrgw/rootfs/root/.ssh/authorized_keys
 
 - name: Add physical host key to container authorized_keys file
   shell: cat ~/.ssh/id_rsa.pub >> "{{ item }}"
@@ -128,6 +136,7 @@
     - /var/lib/lxc/cephosd1/rootfs/root/.ssh/authorized_keys
     - /var/lib/lxc/cephosd2/rootfs/root/.ssh/authorized_keys
     - /var/lib/lxc/cephosd3/rootfs/root/.ssh/authorized_keys
+    - /var/lib/lxc/cephrgw/rootfs/root/.ssh/authorized_keys
 
 - name: add ssh key to cephadmin container
   shell: cat ~/.ssh/id_rsa >> "{{ item }}"
@@ -153,6 +162,7 @@
     - cephosd1
     - cephosd2
     - cephosd3
+    - cephrgw
 
 - name: Restart containers
   lxc_container:
@@ -164,6 +174,7 @@
     - cephosd1
     - cephosd2
     - cephosd3
+    - cephrgw
 
 #- name: wait for container ssh
 # wait_for: port=22 host= "{{ item }}" search_regex=OpenSSH delay=10
@@ -174,3 +185,4 @@
 #    - cephosd1
 #    - cephosd2
 #    - cephosd3
+#    - cephrgw
