@@ -21,4 +21,5 @@ cephosd2
 cephosd3
 
 [rgws]
-cephrgw
+cephrgw1
+cephrgw2

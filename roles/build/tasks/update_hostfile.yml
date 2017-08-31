@@ -9,5 +9,6 @@
     - { container: 'cephosd1', IP: '10.0.3.53'}
     - { container: 'cephosd2', IP: '10.0.3.54'}
     - { container: 'cephosd3', IP: '10.0.3.55'}
-    - { container: 'cephrgw', IP: '10.0.3.56'}
+    - { container: 'cephrgw1', IP: '10.0.3.56'}
+    - { container: 'cephrgw2', IP: '10.0.3.57'}
 
