@@ -35,10 +35,10 @@
 - name: change rgw default port in cephconfig
   blockinfile: 
     dest=~/ceph.conf
-    content='[client.rgw.cephrgw1]
-	rgw_frontends = "civetweb port=8080"
-	[client.rgw.cephrgw2]
-	rgw_frontends = "civetweb port=8080"'
+    content="[client.rgw.cephrgw1]\n
+      rgw_frontends = \"civetweb port=8080\"\n
+      [client.rgw.cephrgw2]\n
+      rgw_frontends = \"civetweb port=8080\"\n"
 
 - name: install ceph cluster
   shell: /usr/bin/ceph-deploy install cephadmin cephmon cephosd1 cephosd2 cephosd3 cephrgw1 cephrgw2 && echo "done" 
