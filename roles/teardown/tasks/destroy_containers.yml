@@ -10,6 +10,8 @@
     - cephosd1
     - cephosd2
     - cephosd3
+    - cephrgw1
+    - cephrgw2
 
 - name: Destroy containers
   lxc_container:
@@ -21,3 +23,5 @@
     - cephosd1
     - cephosd2
     - cephosd3 
+    - cephrgw1
+    - cephrgw2

@@ -32,8 +32,16 @@
     line: "osd_pool_default_size = 2"
     state: present
 
+- name: change rgw default port in cephconfig
+  blockinfile: 
+    dest=~/ceph.conf
+    content="[client.rgw.cephrgw1]\n
+      rgw_frontends = \"civetweb port=8080\"\n
+      [client.rgw.cephrgw2]\n
+      rgw_frontends = \"civetweb port=8080\"\n"
+
 - name: install ceph cluster
-  shell: /usr/bin/ceph-deploy install cephadmin cephmon cephosd1 cephosd2 cephosd3 cephrgw && echo "done" 
+  shell: /usr/bin/ceph-deploy install cephadmin cephmon cephosd1 cephosd2 cephosd3 cephrgw1 cephrgw2 && echo "done" 
 
 - name: create ceph mons
   shell: /usr/bin/ceph-deploy mon create-initial && echo "done"

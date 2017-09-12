@@ -9,6 +9,8 @@ cephmon
 cephosd1
 cephosd2
 cephosd3
+cephrgw1
+cephrgw2
 
 [mons]
 cephadmin
@@ -21,4 +23,5 @@ cephosd2
 cephosd3
 
 [rgws]
-cephrgw
+cephrgw1
+cephrgw2

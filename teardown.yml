@@ -10,9 +10,9 @@
 - hosts: cephadmin
   tasks:
     - name: purge ceph
-      shell: ceph-deploy purge cephadmin cephmon cephrgw cephosd1 cephosd2 cephosd3
+      shell: ceph-deploy purge cephadmin cephmon cephrgw1 cephrgw2 cephosd1 cephosd2 cephosd3
     - name: purge ceph data
-      shell: ceph-deploy purgedata cephadmin cephmon cephrgw cephosd1 cephosd2 cephosd3
+      shell: ceph-deploy purgedata cephadmin cephmon cephrgw1 cephrgw2 cephosd1 cephosd2 cephosd3
     - name: remove ceph keys
       shell: ceph-deploy forgetkeys
 
