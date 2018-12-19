@@ -1,24 +1,26 @@
 ---
+
 # Create 3 disk partitions to act as osds
+# made partitions larger, as this is intended for use with a 75G CBS volume
 - name: Create partition 1
   parted:
-    device: /dev/xvdb
+    device: "{{ data_volume }}"
     number: 1
     state: present
-    part_end: 10GiB
+    part_end: 20GiB
 
 - name: Create partition 2
   parted:
-    device: /dev/xvdb
+    device: "{{ data_volume }}"
     number: 2
     state: present
-    part_start: 10GiB
-    part_end: 20GiB
+    part_start: 20GiB
+    part_end: 40GiB
 
 - name: Create partition 3
   parted:
-    device: /dev/xvdb
+    device: "{{ data_volume }}"
     number: 3
     state: present
-    part_start: 20GiB
-    part_end: 30GiB
+    part_start: 40GiB
+    part_end: 60GiB

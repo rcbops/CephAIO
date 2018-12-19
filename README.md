@@ -26,7 +26,10 @@ Known to Work on:
   Rackspace Public Cloud
     - 15 GB Compute v1   
     - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)  
-    - 75 GB Standard SATA block device attached as /dev/xvdb
+    - 75 GB Standard SATA block device:
+        * unmounted
+        * unformatted
+        * listed in AIO_user_config (defauolt: /dev/xvdb)
 ```    
 
 ### Boot Strap the Host
@@ -78,6 +81,5 @@ The directory  **tests** contains information on how to test the success of some
 TO DO: 
 
 - Add variable to control the number of osds deployed
-- Add variable to remove the hardcoded /dev/xvdb
 
 

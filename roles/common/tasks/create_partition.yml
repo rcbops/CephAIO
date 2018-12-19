@@ -2,6 +2,6 @@
 
 # Create new primary partition
 - parted:
-    device: /dev/xvdb
+    device: "{{ data_partition}}"
     number: 1
     state: present

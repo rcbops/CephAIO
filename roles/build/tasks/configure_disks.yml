@@ -14,9 +14,9 @@
 - name: put xfs filesystem on partitions
   filesystem:
     fstype: xfs
-    dev: /dev/{{ item.drive }}
+    dev: "{{ item.data_partition }}"
   with_items:
-    - "{{ drives }}"
+    - "{{ data_partitions }}"
 
 - name: attach partition to container
   shell: echo "lxc.cgroup.devices.allow = b $(lsblk | grep {{ item.drive }} | awk '{print $2}') rwm" >> /var/lib/lxc/{{ item.container }}/config
