@@ -19,8 +19,3 @@
 
 - name: shred data on disk (ceph-disk zap does not work on partial disks)
   shell: shred -v -n1 -z "{{ data_volume }}"
-  when: is_this_insecure == "nope"
-
-- name: be lazy and just nuke partition table
-  shell: dd if=/dev/zero of={{ data_volume }} bs=1M count=1024
-  when: is_this_insecure == "I know what I am doing, this is for testing."

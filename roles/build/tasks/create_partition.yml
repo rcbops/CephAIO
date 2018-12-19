@@ -2,25 +2,26 @@
 
 # Create 3 disk partitions to act as osds
 # made partitions larger, as this is intended for use with a 75G CBS volume
+# Should be a variable
 - name: Create partition 1
   parted:
     device: "{{ data_volume }}"
     number: 1
     state: present
-    part_end: 20GiB
+    part_end: 23GiB
 
 - name: Create partition 2
   parted:
     device: "{{ data_volume }}"
     number: 2
     state: present
-    part_start: 20GiB
-    part_end: 40GiB
+    part_start: 23GiB
+    part_end: 46GiB
 
 - name: Create partition 3
   parted:
     device: "{{ data_volume }}"
     number: 3
     state: present
-    part_start: 40GiB
-    part_end: 60GiB
+    part_start: 46GiB
+    part_end: 70GiB

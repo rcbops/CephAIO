@@ -1,17 +1,6 @@
 drives:
-  - {container: cephosd1, drive: xvdd1}
-  - {container: cephosd2, drive: xvdd2}
-  - {container: cephosd3, drive: xvdd3}
+  - {container: cephosd1, drive: xvdb1, partition: /dev/xvdb1}
+  - {container: cephosd2, drive: xvdb2, partition: /dev/xvdb2}
+  - {container: cephosd3, drive: xvdb3, partition: /dev/xvdb3}
 
-data_partitions:
-  - {container: cephosd1, data_partition: /dev/xvdd1}
-  - {container: cephosd2, data_partition: /dev/xvdd2}
-  - {container: cephosd3, data_partition: /dev/xvdd3}
-
-data_volume: /dev/xvdd
-
-is_this_insecure: I know what I am doing, this is for testing.
-# Change "nope" to "I know what I am doing, this is for testing."
-# to skip the disk shredding (don't be stupid!)
-# I don't know if this is a good idea at all
-# default: nope
+data_volume: /dev/xvdb
