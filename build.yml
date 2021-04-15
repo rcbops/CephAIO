@@ -1,21 +1,31 @@
 ---
-
+   
 - hosts: physical_host
+  vars_files:
+    - AIO_user_config.yml
   roles:
     - build
 
 - hosts: cephadmin
+  vars_files:
+    - AIO_user_config.yml
   roles:
     - admin_setup
 
 - hosts: osds
+  vars_files:
+    - AIO_user_config.yml
   roles:
     - osd_setup
 
 - hosts: containers
+  vars_files:
+    - AIO_user_config.yml
   roles:
     - container_setup
 
 - hosts: cephadmin
+  vars_files:
+    - AIO_user_config.yml
   roles: 
     - install

@@ -1,6 +1,8 @@
 ---
 
 - hosts: cephosd1,cephosd2,cephosd3
+  vars_files:
+    - AIO_user_config.yml
   tasks:
     - name: remove ceph_fsid
       file:
@@ -8,6 +10,8 @@
         state: absent
 
 - hosts: cephadmin
+  vars_files:
+    - AIO_user_config.yml
   tasks:
     - name: purge ceph
       shell: ceph-deploy purge cephadmin cephmon cephrgw1 cephrgw2 cephosd1 cephosd2 cephosd3
@@ -17,6 +21,8 @@
       shell: ceph-deploy forgetkeys
 
 - hosts: physical_host
+  vars_files:
+    - AIO_user_config.yml
   roles:
     - teardown
 

@@ -2,6 +2,6 @@
 
 # Remove partition number 1
 - parted:
-    device: /dev/xvdb
+    device: "{{ data_partition }}"
     number: 1
     state: absent

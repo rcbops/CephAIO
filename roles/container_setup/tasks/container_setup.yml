@@ -3,8 +3,11 @@
   user:
     name: ceph
     shell: /bin/bash
-    password: "pass123"
     group: sudo
+
+    # created with:
+    # python -c 'import crypt; print crypt.crypt("pass123", "$1$SoSalty$")'
+    password: $1$SoSalty$1YBqGrD0fUSI
 
 - name: check that needed packages exist inside the containers
   apt:

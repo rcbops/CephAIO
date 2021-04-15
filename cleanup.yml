@@ -1,6 +1,8 @@
 ---
 
 - hosts: physical_host
+  vars_files:
+    - AIO_user_config.yml
   roles:
     - teardown
 

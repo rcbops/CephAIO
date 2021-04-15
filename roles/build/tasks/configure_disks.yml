@@ -14,7 +14,7 @@
 - name: put xfs filesystem on partitions
   filesystem:
     fstype: xfs
-    dev: /dev/{{ item.drive }}
+    dev: "{{ item.partition }}"
   with_items:
     - "{{ drives }}"
 

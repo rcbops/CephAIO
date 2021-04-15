@@ -3,19 +3,19 @@
 # Remove partitions 
 
 - parted:
-    device: /dev/xvdb
+    device: "{{ data_volume }}"
     number: 1
     state: absent
 
 - parted:
-    device: /dev/xvdb
+    device: "{{ data_volume }}"
     number: 2
     state: absent
 
 - parted:
-    device: /dev/xvdb
+    device: "{{ data_volume }}"
     number: 3
     state: absent
 
 - name: shred data on disk (ceph-disk zap does not work on partial disks)
-  shell: shred -v -n1 -z /dev/xvdb
+  shell: shred -v -n1 -z "{{ data_volume }}"
