@@ -51,7 +51,7 @@ cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 ```
 Disable password entry
 ```
-sed -i '/PasswordAuthentication yes/c\PasswordAuthentication no' /etc/ssh/sshd_config##
+sed -i '/PasswordAuthentication yes/c\PasswordAuthentication no' /etc/ssh/sshd_config
 ```
 
 ### To Create the CephAIO
